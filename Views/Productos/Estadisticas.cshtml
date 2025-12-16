@@ -1,0 +1,92 @@
+﻿@model InventarioTechSolutions.Models.EstadisticasViewModel
+
+@{
+    ViewData["Title"] = "Estadísticas";
+}
+
+<h1 class="mb-4">Estadísticas</h1>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Promedio de Precio</h5>
+                <p class="card-text fs-4">@Model.PromedioPrecio.ToString("0.00")</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Valor Total del Inventario</h5>
+                <p class="card-text fs-4">@Model.ValorTotalInventario.ToString("0.00")</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h3 class="mt-4">Reporte de Precios (Más caro → Más barato)</h3>
+
+@if (!Model.ProductosOrdenadosPorPrecio.Any())
+{
+    <div class="alert alert-warning">No hay productos para mostrar.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.ProductosOrdenadosPorPrecio)
+            {
+                <tr>
+                    <td>@p.IdProducto</td>
+                    <td>@p.Nombre</td>
+                    <td>@p.Precio.ToString("0.00")</td>
+                    <td>@p.CantidadStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<hr />
+
+<h3 class="mt-4">Alerta de Stock Crítico (Stock &lt; 5)</h3>
+
+@if (!Model.ProductosStockCritico.Any())
+{
+    <div class="alert alert-success">No hay productos en stock crítico.</div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Stock</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.ProductosStockCritico)
+            {
+                <tr>
+                    <td>@p.IdProducto</td>
+                    <td>@p.Nombre</td>
+                    <td>@p.Precio.ToString("0.00")</td>
+                    <td>@p.CantidadStock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
