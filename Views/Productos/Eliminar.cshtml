@@ -1,0 +1,37 @@
+﻿@model InventarioTechSolutions.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<h1>Eliminar producto</h1>
+
+<div class="alert alert-danger">
+    ¿Seguro que deseas eliminar este producto?
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.IdProducto</dd>
+
+            <dt class="col-sm-3">Nombre</dt>
+            <dd class="col-sm-9">@Model.Nombre</dd>
+
+            <dt class="col-sm-3">Precio</dt>
+            <dd class="col-sm-9">@Model.Precio</dd>
+
+            <dt class="col-sm-3">Stock</dt>
+            <dd class="col-sm-9">@Model.CantidadStock</dd>
+        </dl>
+
+        <form asp-action="Eliminar" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdProducto" />
+
+            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    </div>
+</div>
